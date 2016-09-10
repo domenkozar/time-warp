@@ -104,7 +104,7 @@ workWhile cond action = do
     tid     <- fork $ action >> liftIO (writeIORef working False)
     fork_ $ do
         _ <- whileM ((&&) <$> cond <*> liftIO (readIORef working)) $
-            wait $ for 1000 ms
+            wait $ for 200 ms
         killThread tid
 
 -- | Like workWhile, unwraps first layer of monad immediatelly
